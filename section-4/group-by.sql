@@ -10,4 +10,14 @@
  	where followers between 4500 and 4999
  	group by followers
  	order by followers  desc;
+
+select email, substring( email, position( '@' in email ) + 1 )  as domain
+	from users u;
+-- output myrtie.powell@elbafla.kn elbafla.kn
+select count(*), substring( email, position( '@' in email ) + 1 )  as domain
+	from users u 
+	group by substring( email, position( '@' in email ) + 1 )
+	having count(*) > 1
+	order by substring( email, position( '@' in email ) + 1 ) asc ;
+
    
