@@ -9,6 +9,7 @@ alter table country
 
 
 select distinct continent from country c ;
+select * from country c where code = 'CRI';
 
 alter table country 
 	add check(
@@ -17,6 +18,8 @@ alter table country
 			(continent = 'North America') or
 			(continent = 'Oceania') or
 			(continent = 'Antarctica') or
+			(continent = 'Central America') or
 			(continent = 'Africa') or
-			(continent = 'Europe') or
+			(continent = 'Europe') 
 	);
+alter table country drop CONSTRAINT "country_continent_check";
