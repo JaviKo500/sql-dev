@@ -39,3 +39,12 @@ select
 update country a 
 	set continent  = (select "code" from continent b where b.name = a.continent); 
 
+-- update type column and set foreign key
+alter table country 
+alter column continent type int4
+using continent::integer;
+
+alter table country 
+	add constraint fk_continent_code
+	foreign key ( continent )
+	references continent(code);
