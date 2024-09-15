@@ -26,5 +26,16 @@ insert into country_old ( select * from country );
 
 select  * from country_old co ;
 
-
 alter table country  drop constraint country_continent_check;
+
+
+-- massive update
+select 
+	a.name, a.continent,
+	(select "code" from continent b where b.name = a.continent)
+	from country a ;
+	
+-- update value
+update country a 
+	set continent  = (select "code" from continent b where b.name = a.continent); 
+
