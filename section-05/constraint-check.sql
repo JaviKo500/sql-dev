@@ -23,3 +23,6 @@ alter table country
 			(continent = 'Europe') 
 	);
 alter table country drop CONSTRAINT "country_continent_check";
+
+-- reset sequence
+alter sequence 'continent_code_seq' restart with 8;
