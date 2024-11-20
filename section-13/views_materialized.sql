@@ -15,3 +15,5 @@ select * from comments_per_week_mat cpwm ;
 refresh materialized view comments_per_week_mat ;
 
 select * from posts p where p.post_id =1;
+
+alter view post_per_weeks rename to post_per_weew;
