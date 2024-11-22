@@ -22,3 +22,16 @@ with recursive multiplication_table(num_base, num_counter, total) as (
 	union
 	select 5 as num_base, num_counter + 1, (num_counter + 1) * num_base from multiplication_table where num_counter < 20
 ) select num_base, num_counter, total from multiplication_table;
+
+with recursive multiplication_table() as (
+	select 5 as num_base, 1 as num_counter, 5 as total
+	union
+	select 5 as num_base, num_counter + 1, (num_counter + 1) * num_base from multiplication_table where num_counter < 20
+) select num_base, num_counter, total from multiplication_table;
+
+with recursive multiplication_table(num_base, num_counter, total) as (
+	values(5,1,5)
+	union
+	select 5 as num_base, num_counter + 1, (num_counter + 1) * num_base from multiplication_table where num_counter < 20
+) select num_base, num_counter, total from multiplication_table;
+
