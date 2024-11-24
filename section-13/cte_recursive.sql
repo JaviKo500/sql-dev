@@ -76,3 +76,18 @@ select bosses.*, employees.name as report_name from bosses
 	left join employees 
 	on employees.id = bosses.reports_to
 	order by depth;
+
+-- followers without cte recursive
+	select f.id, f.leader_id, leader."name" as leader, f.follower_id, follower."name" as follower from followers f
+inner join "user" leader  
+on f.leader_id = leader.id 
+inner join "user" follower 
+on f.follower_id = follower.id ;
+
+-- followers id 1
+select f.follower_id from followers f where f.leader_id = 1;
+
+-- follers id 2-3
+select * from followers f 
+where leader_id in ( select f.follower_id from followers f where f.leader_id = 1 );
+
