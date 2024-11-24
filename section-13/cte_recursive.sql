@@ -55,3 +55,12 @@ select * from bosses;
 --  8	programador fernando	  7
 --  9	programador javier	  7
 --  11	junio nube	  9
+
+with recursive bosses as (
+	select id, name, reports_to, 1 as depth from employees where id = 1
+	union
+	select e.id, e.name, e.reports_to, depth + 1 from employees e
+		inner join bosses on bosses.id = e.reports_to
+	where depth < 4
+)
+select * from bosses;
