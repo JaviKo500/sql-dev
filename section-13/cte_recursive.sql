@@ -64,3 +64,15 @@ with recursive bosses as (
 	where depth < 4
 )
 select * from bosses;
+
+with recursive bosses as (
+	select id, name, reports_to, 1 as depth from employees where id = 1
+	union
+	select e.id, e.name, e.reports_to, depth + 1 from employees e
+		inner join bosses on bosses.id = e.reports_to
+	where depth < 10
+)
+select bosses.*, employees.name as report_name from bosses 
+	left join employees 
+	on employees.id = bosses.reports_to
+	order by depth;
