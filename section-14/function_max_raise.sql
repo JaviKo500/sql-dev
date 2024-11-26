@@ -78,3 +78,30 @@ begin
 end
 $$
 language plpgsql;
+
+
+create or replace function max_raise_2( empl_id int )
+returns numeric(8,2)
+as $$
+declare
+	selected_employee employees%rowtype;
+	selected_job jobs%rowtype;
+	possible_raise numeric(8,2);
+begin
+--	get postion jon and salary
+	select * from employees e into selected_employee
+	where employee_id = empl_id;
+
+-- get max salary by position
+	select * from jobs into selected_job where job_id = selected_employee.job_id;
+
+-- operation
+	possible_raise = selected_job.max_salary  - selected_employee.salary;
+	if ( possible_raise < 0 ) then
+--	return 0;
+raise exception 'person with salary mayor a max_salary: %, %', selected_employee.salary, selected_employee.first_name;
+	end if;
+	return possible_raise; 
+end
+$$
+language plpgsql;
